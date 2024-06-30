@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs")
 const jsonwebtoken = require("jsonwebtoken")
 
 const { expensemodel } = require("./Models/Expense")
-const bcrypt = require("bcryptjs")
+
 
 
 const app = express()
@@ -30,22 +30,6 @@ app.post("/signup", async (req, res) => {
     Expense.save()
 
     res.json({ "status": "success" })
-})
-app.post("/view", (req, res) => {
-    let token = req.headers["token"]
-    jsonwebtoken.verify(token, "expense-app", (error, decoded) => {
-        if (error) {
-            res.json({ "status": "unauthorised access" })
-        } else {
-            if (decoded) {
-                expensemodel.find().then(
-                    (response) => {
-                        res.json(response)
-                    }
-                ).catch()
-            }
-        }
-    })
 })
 
 app.post("/signin", async (req, res) => {
