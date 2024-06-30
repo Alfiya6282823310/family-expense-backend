@@ -28,7 +28,6 @@ app.post("/signup", async (req, res) => {
     input.password = hashedPassword
     let Expense = new expensemodel(input)
     Expense.save()
-
     res.json({ "status": "success" })
 })
 
