@@ -30,6 +30,14 @@ app.post("/signup", async (req, res) => {
     res.json({ "status": "success" })
 })
 
+app.post("/add",(req,res)=>{
+    let input=req.body
+    let Expense=new expensemodel(input)
+    Expense.save()
+    res.json({"status":"success"})
+})
+
+
 app.listen(8080,()=>{
     console.log("Server Running")
 })
