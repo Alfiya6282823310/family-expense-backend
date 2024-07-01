@@ -43,7 +43,9 @@ app.post("/signin", async (req, res) => {
                         jsonwebtoken.sign(
                             { username: input.username }, "expense-app", { expiresIn: "6d" }, (error, token) => {
                                 if (error) {
-                                    res.json({ "status": "success", "userid": response[0]._id, "token": token })
+                                    res.json({ "status":"unable to create token"})
+                                }else{
+                                    res.json({"status":"success","userid":response[0]._id,"token":token})
                                 }
                             }
                         )
