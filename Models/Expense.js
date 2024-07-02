@@ -4,6 +4,11 @@ const schema = mongoose.Schema(
         "username": String,
         "password": String,
         "email": String,
+        "month":String,
+        "year":Number,
+        "category":String,
+        "bill":String,
+        "description":String
 
     }
 )
