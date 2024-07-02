@@ -2,18 +2,16 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema(
     {
 
-        "fullname":{type:String,required:true},
-        "email": {type:String,required:true},
-        "username":{type:String,required:true},
-        "password":{type:String,required:true},
-        "confirmpassword":{type:String,required:true}
+        "fullname":String,
+        "email": String,
+        "username":String,
+        "password":String,
+        "confirmpassword":String,
          "month":String,
         "year":Number,
         "category":String,
         "bill":String,
         "description":String
-       
-
 
     }
 )
