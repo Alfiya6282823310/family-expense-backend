@@ -30,12 +30,18 @@ app.post("/signup", async (req, res) => {
     res.json({ "status": "success" })
 })
 
-app.post("/add",(req,res)=>{
-    let input=req.body
-    let Expense=new expensemodel(input)
-    Expense.save()
-    res.json({"status":"success"})
-})
+app.post("/add", async (req, res) => {
+    try {
+      let input = req.body;
+      let Expense = new expensemodel(input);
+      let savedExpense = await Expense.save();
+      res.json({ status: "success", expense: savedExpense });
+    } catch (err) {
+      res.status(500).json({ status: "error", message: err.message });
+    }
+  });
+  
+  
 
 
 app.listen(8080,()=>{
