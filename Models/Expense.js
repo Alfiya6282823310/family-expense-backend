@@ -9,6 +9,7 @@ const schema = mongoose.Schema(
         "confirmpassword":String,
          "month":String,
         "year":Number,
+        "amount":Number,
         "category":String,
         "bill":String,
         "description":String
