@@ -35,15 +35,35 @@ app.post("/signup", async (req, res) => {
 
 app.post("/add", async (req, res) => {
     try {
-      let input = req.body;
-      let Expense =new addUserModel(input);
-      let savedExpense = await Expense.save();
-      res.json({ status: "success", expense: savedExpense });
+        let input = req.body;
+        let Expense = new addUserModel(input);
+        let savedExpense = await Expense.save();
+        res.json({ status: "success", expense: savedExpense });
     } catch (err) {
-      res.status(500).json({ status: "error", message: err.message });
+        res.status(500).json({ status: "error", message: err.message });
     }
-  });
-  
+});
+
+app.post("/search", async (req, res) => {
+    try {
+        const { month, year } = req.body;
+
+        if (!month || !year) {
+            return res.status(400).json({ status: "error", message: "Month and year are required" });
+        }
+
+        const totalAmount = await addUserModel.aggregate([
+            { $match: { month: month, year: parseInt(year) } },
+            { $group: { _id: null, totalAmount: { $sum: "$amount" } } }
+        ]);
+
+        res.json({ status: "success", totalAmount: totalAmount[0] ? totalAmount[0].totalAmount : 0 });
+    } catch (err) {
+        res.status(500).json({ status: "error", message: err.message });
+    }
+});
+
+
 app.post("/signin", async (req, res) => {
     let input = req.body
     expensemodel.find({ "username": req.body.username }).then(
@@ -56,9 +76,9 @@ app.post("/signin", async (req, res) => {
                         jsonwebtoken.sign(
                             { username: input.username }, "expense-app", { expiresIn: "6d" }, (error, token) => {
                                 if (error) {
-                                    res.json({ "status":"unable to create token"})
-                                }else{
-                                    res.json({"status":"success","userid":response[0]._id,"token":token})
+                                    res.json({ "status": "unable to create token" })
+                                } else {
+                                    res.json({ "status": "success", "userid": response[0]._id, "token": token })
                                 }
                             }
                         )
