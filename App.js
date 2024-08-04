@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const jsonwebtoken = require("jsonwebtoken")
 
 const { expensemodel } = require("./Models/Expense")
+const { addUserModel } = require("./Models/Expenseadd")
 
 
 
@@ -12,7 +13,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://abijith0a31:abijith1415@cluster0.fodkdeb.mongodb.net/expenseDB?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://alfiyakn:alfiyakn@cluster0.l8relji.mongodb.net/ExpenseDb?retryWrites=true&w=majority&appName=Cluster0")
 
 
 const generateHashedPassword = async (password) => {
@@ -35,7 +36,7 @@ app.post("/signup", async (req, res) => {
 app.post("/add", async (req, res) => {
     try {
       let input = req.body;
-      let Expense = new expensemodel(input);
+      let Expense =new addUserModel(input);
       let savedExpense = await Expense.save();
       res.json({ status: "success", expense: savedExpense });
     } catch (err) {

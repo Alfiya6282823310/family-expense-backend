@@ -5,14 +5,7 @@ const schema = mongoose.Schema(
         "fullname":String,
         "email": String,
         "username":String,
-        "password":String,
-        "confirmpassword":String,
-         "month":String,
-        "year":Number,
-        "category":String,
-        "bill":String,
-        "description":String
-
+        "password":String     
     }
 )
 let expensemodel = mongoose.model("expenses", schema);
